@@ -1,12 +1,12 @@
 {{ define "main" }}
+	{{ $dateFmt := .Site.Params.dateFmt }}
 	<main>
 		<article>
 			<h1>{{ .Title }}</h1>
-			<b><time>{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time></b>
-		       {{ range .Params.tags }}
-		           <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
-        	       {{ end }}
-
+			{{ with .Date }} <b><time>{{ .Format (default "2006-01-02 15:04:05" $dateFmt ) }}</time></b> {{ end }}
+		    {{ range .Params.tags }}
+		    	<a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+            {{ end }}
 			<div>
 				{{ .Content }}
 			</div>
